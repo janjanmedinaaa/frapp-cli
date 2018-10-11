@@ -7,6 +7,7 @@ const files = require('./src/files');
 const inquirer = require('./src/inquirer');
 const github = require('./src/github');
 const repo = require('./src/repo');
+const frapp = require('./src/frapp');
 
 /* Title Display */
 
@@ -41,9 +42,9 @@ const config = async () => {
 
         const dir = files.getCurrentDirectoryBase();
 
-        const frapp = await inquirer.askFrappConfig(dir);
+        const frapp = await frapp.askFrappConfig(dir);
         
-        const createFrapp = files.createFrapp(frapp);
+        const createFrapp = frapp.createFrapp(frapp);
 
         if(createFrapp) {
             console.log(chalk.green('\nFrapp Ready!\n'));
@@ -92,24 +93,21 @@ const config = async () => {
 }
 
 const run = async () => {
-    try {
+    const argv = require('minimist')(process.argv.slice(2));
+
+    if(argv._[0] == 'new') {
         config();
-    } catch (err) {
-        throw new err;
     }
 
     if (files.directoryExists('.git') 
         && files.directoryExists('frapp')) {
         
-        const argv = require('minimist')(process.argv.slice(2));
-        
         if(argv._[0] == 'order') {
-            files.createPatch(argv);
+            frapp.createPatch(argv);
         }
 
     }
 
-    // console.log(files.getCurrentDirectoryBase());
 }
 
 run();
