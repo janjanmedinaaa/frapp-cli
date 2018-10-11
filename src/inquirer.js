@@ -1,6 +1,4 @@
 const inquirer   = require('inquirer');
-const files      = require('./files');
-const pkg        = require('../package.json');
 
 module.exports = {
     /* Ask user for Credentials */
@@ -39,7 +37,7 @@ module.exports = {
     /* Ask Repository Details */
 
     askRepoDetails: (dir) => {
-        const argv = require('minimist')(process.argv.slice(2));
+        const argv = require('minimist')(process.argv.slice(3));
     
         const questions = [
             {
@@ -72,91 +70,4 @@ module.exports = {
 
         return inquirer.prompt(questions);
     },
-
-    askFrappConfig: (dir) => {
-        const questions = [
-            {
-                type: 'input',
-                name: 'app_name',
-                message: 'Enter App Name:',
-                default: dir,
-            },
-            {
-                type: 'input',
-                name: 'description',
-                message: 'Enter App Description:',
-                default: null,
-            },
-            {
-                type: 'input',
-                name: 'developer',
-                message: 'Enter Developer Name:',
-                validate: function(value) {
-                    if (value.length) {
-                        return true;
-                    } else {
-                        return 'Please enter Developer Name';
-                    }
-                }
-            },
-            {
-                type: 'list',
-                name: 'apk',
-                message: 'Enter Initial APK Location:',
-                choices: [ 
-                    '/frapp/apk/app_release.apk', 
-                    '/app/build/outputs/app-release.apk',
-                    '/android/app/build/outputs/apk/app-release.apk' 
-                ],
-                default: '/frapp/apk/frapp.apk',
-            },
-            {
-                type: 'input',
-                name: 'icon',
-                message: 'Enter Icon Location:',
-                default: '/frapp/apk/icon.png'
-            },
-            {
-                type: 'input',
-                name: 'tags',
-                message: 'Enter App tags:',
-                default: null
-            },
-        ];
-
-        return inquirer.prompt(questions);
-    },
-
-    askPatchInfo: (init) => {
-        const questions = [
-            {
-                type: 'input',
-                name: 'patch_name',
-                message: 'Enter Patch Name:',
-                default: init._[1],
-                validate: function(value) {
-                    if (value.length) {
-                        return true;
-                    } else {
-                        return 'Please enter Patch Name.';
-                    }
-                }
-            },
-            {
-                type: 'input',
-                name: 'patch_desc',
-                default: null,
-                message: 'Enter Patch Description:',
-                validate: function(value) {
-                    if (value.length) {
-                        return true;
-                    } else {
-                        return 'Please enter Patch Description';
-                    }
-                }
-            },
-        ];
-
-        return inquirer.prompt(questions);
-    }
 }
