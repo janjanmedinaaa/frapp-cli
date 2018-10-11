@@ -42,9 +42,9 @@ const config = async () => {
 
         const dir = files.getCurrentDirectoryBase();
 
-        const frapp = await frapp.askFrappConfig(dir);
+        const frappconfig = await frapp.askFrappConfig(dir);
         
-        const createFrapp = frapp.createFrapp(frapp);
+        const createFrapp = frapp.createFrapp(frappconfig);
 
         if(createFrapp) {
             console.log(chalk.green('\nFrapp Ready!\n'));
@@ -107,7 +107,7 @@ const run = async () => {
         }
 
     }
-
+    
 }
 
 run();
