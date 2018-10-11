@@ -39,17 +39,17 @@ module.exports = {
                 name: 'apk',
                 message: 'Enter Initial APK Location:',
                 choices: [ 
-                    '/frapp/apk/app_release.apk', 
-                    '/app/build/outputs/app-release.apk',
-                    '/android/app/build/outputs/apk/app-release.apk' 
+                    'frapp/apk/app_release.apk', 
+                    'app/build/outputs/app-release.apk',
+                    'android/app/build/outputs/apk/app-release.apk' 
                 ],
-                default: '/frapp/apk/frapp.apk',
+                default: 'frapp/apk/frapp.apk',
             },
             {
                 type: 'input',
                 name: 'icon',
                 message: 'Enter Icon Location:',
-                default: '/frapp/apk/icon.png'
+                default: 'frapp/apk/icon.png'
             },
             {
                 type: 'input',
