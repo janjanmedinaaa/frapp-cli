@@ -1,0 +1,30 @@
+{
+  "name": "frapp-cli",
+  "version": "1.0.0",
+  "description": "Open Source App for Open Source Apps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "git",
+    "cli"
+  ],
+  "bin": {
+    "frapp": "./index.js"
+  },
+  "author": "Janjan Medina",
+  "license": "ISC",
+  "dependencies": {
+    "@octokit/rest": "^15.13.1",
+    "chalk": "^2.4.1",
+    "clui": "^0.3.6",
+    "configstore": "^4.0.0",
+    "figlet": "^1.2.1",
+    "inquirer": "^6.2.0",
+    "lodash": "^4.17.11",
+    "minimist": "^1.2.0",
+    "simple-git": "^1.104.0",
+    "touch": "^3.1.0"
+  }
+}
