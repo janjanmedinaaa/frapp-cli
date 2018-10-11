@@ -1,7 +1,7 @@
 {
   "name": "frapp-cli",
   "version": "1.0.0",
-  "description": "Open Source App for Open Source Apps",
+  "description": "This is the official CLI in uploading Mobile Application in the Frapp Store.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
