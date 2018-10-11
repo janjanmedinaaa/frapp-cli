@@ -3,6 +3,8 @@ const fs = require('fs');
 const inquirer   = require('inquirer');
 const chalk = require('chalk');
 
+const files = require('./files');
+
 module.exports = {
     /* Asks user for Frapp Config */
 
@@ -37,13 +39,12 @@ module.exports = {
             {
                 type: 'list',
                 name: 'apk',
-                message: 'Enter Initial APK Location:',
+                message: 'Enter APK:',
                 choices: [ 
-                    'frapp/apk/app_release.apk', 
-                    'app/build/outputs/app-release.apk',
-                    'android/app/build/outputs/apk/app-release.apk' 
+                    'app-release.apk',
+                    'app-debug.apk'
                 ],
-                default: 'frapp/apk/frapp.apk',
+                default: 'app-release.apk',
             },
             {
                 type: 'input',
@@ -88,7 +89,7 @@ module.exports = {
                     if (value.length) {
                         return true;
                     } else {
-                        return 'Please enter Patch Description';
+                        return 'Please enter Patch Description.';
                     }
                 }
             },
@@ -133,6 +134,8 @@ module.exports = {
             const notes = (fs.existsSync('./frapp/apk/patch.json')) ? 
             JSON.parse(fs.readFileSync('./frapp/apk/patch.json')) : [];
 
+            const appjson = JSON.parse(fs.readFileSync('./frapp/app.json'));
+
             const date = new Date();
 
             const patchinfo = await module.exports.askPatchInfo(patch);
@@ -140,9 +143,26 @@ module.exports = {
             patchinfo.date = date;
 
             notes.push(patchinfo);
-
+            
             let data = JSON.stringify(notes, null, 2);  
             fs.writeFileSync('./frapp/apk/patch.json', data); 
+
+            try {
+
+                /* Copy APK from location based on app.json */
+
+                var apk = files.findFile('./app/build/outputs', appjson.apk);
+                console.log(appjson.apk);
+                console.log(apk);
+
+                var inStr = fs.createReadStream(apk[0]);
+                var outStr = fs.createWriteStream('frapp/apk/frapp.apk');
+
+                inStr.pipe(outStr);
+
+            } catch (err) {
+                console.log(chalk.red('APK not found!'));
+            }
 
             console.log(chalk.green('\nYour Frapp Order is ready!\n'));
         } catch (err) {
